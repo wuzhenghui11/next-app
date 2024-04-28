@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { Suspense } from 'react'
+import Loading from '@/app/loading'
 import './globals.css'
 
 const inter = Inter({ subsets: ["latin"] });
@@ -11,14 +13,24 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  team,
+  analytics,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
+  team: React.ReactNode
+  analytics: React.ReactNode
 }>) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div>Root Layout</div>
-        {children}
+        <Suspense fallback={<Loading></Loading>}>
+          <div>Root Layout</div>
+          <hr />
+          {children}
+          <hr />
+          {team}
+          {analytics}
+        </Suspense>
       </body>
     </html>
   );
